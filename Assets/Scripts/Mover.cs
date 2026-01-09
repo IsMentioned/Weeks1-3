@@ -1,10 +1,13 @@
+
 using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
-    public float speed = 0.01f;
-    public float xMax = 200;
-    public float xMin = -200;
+    public float speed = 0.02f;
+    public float xMax;
+    public float xMin;
+    public Camera gameCamera;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,12 +22,26 @@ public class Mover : MonoBehaviour
         moverXPos.x = moverXPos.x + speed;
         transform.position = moverXPos;
 
-        Debug.Log("moverXPos["+moverXPos.x.ToString()+"], xMin["+xMin.ToString()+"] speed["+speed.ToString()+"]");
+        //Screen.width;
+        //gameCamera.WorldToScreenPoint(//somerandomvector);
 
-        if (transform.position.x > xMax && speed > 0)
-            speed = -speed;
-        if (transform.position.x < xMin && speed < 0)
-            speed = -speed;
+        //set xMax to wherever is too far to the right for the player to see
+        Vector3 screenTransformPosition = gameCamera.WorldToScreenPoint(transform.position);
+        xMax = Screen.width;
+
+        //set xMin to wherever is too far to the left for the player to see
+        xMin = 0;
+
+
+        if (xMax < screenTransformPosition.x)
+        {
+            speed *= -1;
+        }
+
+        if (xMin > screenTransformPosition.x)
+        {
+            speed *= -1;
+        }
 
     }
 }
