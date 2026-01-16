@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class Mover : MonoBehaviour
@@ -19,7 +18,8 @@ public class Mover : MonoBehaviour
     void Update()
     {
         Vector3 moverXPos = transform.position;
-        moverXPos.x = moverXPos.x + speed;
+        moverXPos.x += speed * Time.deltaTime;
+
         transform.position = moverXPos;
 
         //Screen.width;
