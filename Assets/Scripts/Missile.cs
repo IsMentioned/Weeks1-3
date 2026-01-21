@@ -17,7 +17,7 @@ public class Missile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        progress += Time.deltaTime / 2f;
+        progress += Time.deltaTime / 5f;
        output = Vector3.Lerp(startValue.position, endValue.position, progress);
         transform.position = output;
     }
