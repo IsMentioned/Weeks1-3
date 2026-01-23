@@ -1,64 +1,76 @@
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using System.Collections.Generic;
 
 public class Controller : MonoBehaviour
 {
-    Vector2 position;
-    Vector3 rotation;
-
     public float moveSpeed;
     public float rotateSpeed;
+
+    public SpriteRenderer spriteRenderer;
+    public Color startingColour;
+
+    public List<SpriteRenderer> controllableRenderers;
+    public List<Transform> controlledTransforms;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        bool isInsideSprite = spriteRenderer.bounds.Contains(transform.position);
+
+
+        controlledTransforms.Add(transform);
     }
 
     // Update is called once per frame
     void Update()
     {
-        bool leftIsHeld = Mouse.current.leftButton.isPressed;
-        if (leftIsHeld)
+        Vector3 currentMousePosition = Mouse.current.position.ReadValue();
+        Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(currentMousePosition);
+        worldMousePosition.z = 0;
+
+        bool isLeftPressed = Mouse.current.leftButton.wasPressedThisFrame;
+        if (isLeftPressed)
         {
-            Debug.Log("Left mose is held");
-        }
-        bool leftIsPressed = Mouse.current.leftButton.wasPressedThisFrame;
-        if (leftIsPressed)
-        {
-            Debug.Log("Left mouse is pressed");
-        }
-        bool leftIsReleased = Mouse.current.leftButton.wasReleasedThisFrame;
-        if (leftIsReleased)
-        {
-            Debug.Log("Left mouse is released");
+            //Find any renderers that are currently hovered over
+
+            //Iterate over all of the elements and determine if any of them are hovered over
+            for (int i = 0; i < controllableRenderers.Count; i++)
+            {
+                SpriteRenderer currentSpriteRenderer = controllableRenderers[i];
+                bool isHovered = currentSpriteRenderer.bounds.Contains(worldMousePosition);
+                if (isHovered)
+                {
+                    controlledTransforms.Add(currentSpriteRenderer.transform);
+                }
+            }
         }
 
-        bool upArrowIsHeld = Keyboard.current.upArrowKey.isPressed;
-        bool downArrowIsHeld = Keyboard.current.downArrowKey.isPressed;
-        bool leftArrowIsHeld = Keyboard.current.leftArrowKey.isPressed;
-        bool rightArrowIsHeld = Keyboard.current.rightArrowKey.isPressed;
-
-
-        if (upArrowIsHeld)
+        for (int i = 0; i < controlledTransforms.Count; i++)
         {
-            transform.position += transform.up * moveSpeed * Time.deltaTime;
+            Transform currentTransform = controlledTransforms[i];
+            bool leftArrowHeld = Keyboard.current.leftArrowKey.isPressed;
+            bool rightArrowHeld = Keyboard.current.rightArrowKey.isPressed;
+            bool upArrowHeld = Keyboard.current.upArrowKey.isPressed;
+            bool downArrowHeld = Keyboard.current.downArrowKey.isPressed;
+            if (leftArrowHeld)
+            {
+                currentTransform.eulerAngles += currentTransform.forward * rotateSpeed * Time.deltaTime;
+            }
+            if (rightArrowHeld)
+            {
+                currentTransform.eulerAngles -= currentTransform.forward * rotateSpeed * Time.deltaTime;
+            }
+            if (upArrowHeld)
+            {
+                currentTransform.position += currentTransform.up * moveSpeed * Time.deltaTime;
+            }
+            if (downArrowHeld)
+            {
+                currentTransform.position -= currentTransform.up * moveSpeed * Time.deltaTime;
+            }
         }
-        if (downArrowIsHeld)
-        {
-            transform.position -= transform.up * moveSpeed * Time.deltaTime;
-        }
-
-        Vector3 rotation = transform.eulerAngles;
-        
-        if (leftArrowIsHeld)
-        {
-            transform.eulerAngles += transform.forward * rotateSpeed * Time.deltaTime;
-        }
-        if (rightArrowIsHeld)
-        {
-            transform.eulerAngles -= transform.forward * rotateSpeed * Time.deltaTime;
-        }
-
     }
 }
