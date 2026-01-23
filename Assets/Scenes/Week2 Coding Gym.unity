@@ -387,6 +387,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45e4e62f2a0df4f4392135c4751ef47b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: 0
+  vibrate:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0037135705
+      value: 0.74121666
+      inSlope: -0.0009244924
+      outSlope: -0.0009244924
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.1760777
+    - serializedVersion: 3
+      time: 0.04788023
+      value: 1.2396646
+      inSlope: -0.029853351
+      outSlope: -0.029853351
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.09204689
+      value: 0.74121666
+      inSlope: -0.029006671
+      outSlope: -0.029006671
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.77992725
+    - serializedVersion: 3
+      time: 0.13621354
+      value: 1.2396646
+      inSlope: -0.5251758
+      outSlope: -0.5251758
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.1803802
+      value: 0.74121666
+      inSlope: -0.028571244
+      outSlope: -0.028571244
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.8333335
+      outWeight: 1
+    m_PreInfinity: 1
+    m_PostInfinity: 1
+    m_RotationOrder: 4
+  scale: {x: 1, y: 1, z: 0}
 --- !u!212 &1806406066
 SpriteRenderer:
   m_ObjectHideFlags: 0
