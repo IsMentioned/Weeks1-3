@@ -14,6 +14,8 @@ public class Spell : MonoBehaviour
 
     public AnimationCurve curve;
 
+    public AbilityCharge charge;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -45,6 +47,10 @@ public class Spell : MonoBehaviour
         else
         {
             runTimer = 0;
+        }
+        if (charge.abilityRecharged)
+        {
+            spellDepleted = false;
         }
 
     }

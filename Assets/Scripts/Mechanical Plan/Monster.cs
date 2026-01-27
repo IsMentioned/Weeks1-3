@@ -29,7 +29,7 @@ public class Monster : MonoBehaviour
         {
             runTimer += Time.deltaTime;
 
-            if (runTimer > 0 && runTimer < 0.25)
+            if (runTimer > 0.01 && runTimer < 0.25)
             {
                 output = move1.Evaluate(runTimer * 4);
                 location = Vector2.Lerp(aPos, bPos, output);
@@ -43,8 +43,16 @@ public class Monster : MonoBehaviour
             {
                 location = Vector2.Lerp(bPos, aPos, runTimer - 1.25f);
             }
-
+            if (runTimer > 2.25)
+            {
+                spell.monsterHit = false;
+            }
         }
-        transform.position = location;
+        else
+        {
+            runTimer = 0;
+        }
+            transform.position = location;
+
     }
 }

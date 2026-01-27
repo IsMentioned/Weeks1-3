@@ -7,10 +7,12 @@ public class PlayerCharacter : MonoBehaviour
     Vector2 mousePosition;
     Vector2 objectPosition;
 
-    bool abilityRecharged = true;
     public bool timerIsRunning = false;
     public float activationTimer = 0;
     public bool active = false;
+    float activeTimer;
+
+    public AbilityCharge charge;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,7 +26,7 @@ public class PlayerCharacter : MonoBehaviour
         mousePosition = (Vector2)Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         objectPosition = (Vector2)transform.position;
 
-        if (abilityRecharged && Vector2.Distance(mousePosition, objectPosition) < 1)
+        if (charge.abilityRecharged && Vector2.Distance(mousePosition, objectPosition) < 1)
         {
             timerIsRunning = true;
         }
@@ -42,12 +44,20 @@ public class PlayerCharacter : MonoBehaviour
         }
         if(activationTimer >= 2)
         {
-            abilityRecharged = false;
+            charge.abilityRecharged = false;
             active = true;
         }
-        //if (active)
-        //{
-        //
-        //}
+        if (active)
+        {
+            activeTimer += Time.deltaTime;
+        }
+        else
+        {
+            activeTimer = 0;
+        }
+        if(activeTimer > 0.5f)
+        {
+            active = false;
+        }
     }
 }
