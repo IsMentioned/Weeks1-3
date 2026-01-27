@@ -10,6 +10,7 @@ public class Spell : MonoBehaviour
     public PlayerCharacter playerCharacter;
     float runTimer = 0;
     bool spellDepleted = false;
+    public bool monsterHit = false;
 
     public AnimationCurve curve;
 
@@ -24,12 +25,20 @@ public class Spell : MonoBehaviour
     {
         if (playerCharacter.active && !spellDepleted)
         {
-            runTimer += Time.deltaTime;
+            runTimer += Time.deltaTime * 4;
 
-            location = Vector2.Lerp(startPos, endPos, runTimer * 4);
+            location = Vector2.Lerp(startPos, endPos, runTimer);
+
+            size = curve.Evaluate(runTimer);
+
+            if(runTimer > 1)
+            {
+                size = 0;
+                spellDepleted = true;
+                monsterHit = true;
+            }
+
             transform.position = location;
-
-            size = curve.Evaluate(runTimer * 4);
             transform.localScale = Vector3.one * size;
 
         }
