@@ -6,6 +6,7 @@ public class PlayerCharacter : MonoBehaviour
     Camera main;
     Vector2 mousePosition;
     Vector2 objectPosition;
+    Vector2 startPos = new Vector2(-3, 0);
 
     public bool timerIsRunning = false;
     public float activationTimer = 0;
@@ -17,7 +18,7 @@ public class PlayerCharacter : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        transform.position = startPos;
     }
 
     // Update is called once per frame

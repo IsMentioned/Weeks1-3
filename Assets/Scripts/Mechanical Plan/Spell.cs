@@ -19,7 +19,7 @@ public class Spell : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        transform.position = startPos;
     }
 
     // Update is called once per frame
