@@ -16,6 +16,7 @@ public class MouseOver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Displays a growing circle in sync with the 'player character' active state initialization.
         if (playerCharacter.timerIsRunning)
         {
             loadTimer += Time.deltaTime /2;

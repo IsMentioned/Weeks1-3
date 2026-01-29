@@ -19,6 +19,7 @@ public class AbilityCharge : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //The ability bar is recharged over 3 seconds if depleted.
         if (abilityRecharged == false)
         {
             rechargeTimer += Time.deltaTime;
@@ -28,6 +29,7 @@ public class AbilityCharge : MonoBehaviour
 
         }
 
+        //If the timer is greater than 3, the ability is recharged, and the timer is reset.
         if(rechargeTimer > 3)
         {
             abilityRecharged = true;

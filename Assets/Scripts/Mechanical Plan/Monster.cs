@@ -25,24 +25,32 @@ public class Monster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //If the monster is hit, the object enters a sequence of actions.
         if (spell.monsterHit)
         {
             runTimer += Time.deltaTime;
 
+            // The monsters lerps backwards quickly.
             if (runTimer > 0.01 && runTimer < 0.25)
             {
                 output = move1.Evaluate(runTimer * 4);
                 location = Vector2.Lerp(aPos, bPos, output);
             }
+
+            //The monster shakes an anger using an Animation Curve.
             if (runTimer > 0.75 && runTimer < 1.25)
             {
                 output = stun.Evaluate((runTimer - 0.75f) * 2);
                 location.x = 5 + output;
             }
+
+            //The monster advances towards the player using a Lerp.
             if (runTimer > 1.25 && runTimer < 2.25)
             {
                 location = Vector2.Lerp(bPos, aPos, runTimer - 1.25f);
             }
+
+            //The sequence ends.
             if (runTimer > 2.25)
             {
                 spell.monsterHit = false;

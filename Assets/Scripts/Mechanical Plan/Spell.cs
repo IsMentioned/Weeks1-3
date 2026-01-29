@@ -19,20 +19,24 @@ public class Spell : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        transform.position = startPos;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Spell activates once if the player character is currently 'active'.
         if (playerCharacter.active && !spellDepleted)
         {
             runTimer += Time.deltaTime * 4;
 
+            //Moves the spell from left to right using a Lerp.
             location = Vector2.Lerp(startPos, endPos, runTimer);
 
+            //Increases the vertical scale of the spell using an Animation Curve.
             size = curve.Evaluate(runTimer);
 
+            //After 1 second, the monster is considered hit and the spell is depleted.
             if(runTimer > 1)
             {
                 size = 0;
@@ -48,6 +52,8 @@ public class Spell : MonoBehaviour
         {
             runTimer = 0;
         }
+
+        //Spell is reset when the ability is recharged.
         if (charge.abilityRecharged)
         {
             spellDepleted = false;
